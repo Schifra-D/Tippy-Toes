@@ -1,0 +1,26 @@
+{
+  "name": "Tippy Toes | Pet Nails Precision Tracker",
+  "short_name": "Tippy Toes",
+  "description": "Precision pet nails and grooming timeline tracker.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#6c5ce7",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
+

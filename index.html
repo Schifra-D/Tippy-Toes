@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <!-- Custom Favicon Package Links with Version Cache Busters -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png?v=2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tippy Toes &#128062; | Pet Nails Precision Tracker</title>
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#020617" media="(prefers-color-scheme: dark)">
+
+    <!-- Apple Mobile App Settings -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="./favicon-32x32.png?v=2"> 
+
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --success: #00b894;
+            --accent: #ff7675;
+            --ivory: #ffffff;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme='dark'] {
+            --bg: #020617; 
+            --card: #0f172a; 
+            --canvas: #1e293b; 
+            --text: #f8fafc;
+            --border: #334155;
+            --input-bg: #1e293b;
+            --shadow: rgba(0,0,0,0.5);
+        }
+
+        [data-theme='light'] {
+            --bg: #cbd5e1; 
+            --card: #f1f5f9;
+            --canvas:#64748b; 
+            --text: #1e293b;
+            --border: #cbd5e1;
+            --input-bg: #ffffff;
+            --shadow: rgba(0,0,0,0.1);
+        }
+
+        * { box-sizing: border-box; font-family: 'Inter', -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
+     body { 
+ background-color: var(--bg); 
+ color: var(--text); 
+ margin: 0; 
+ /* Fix: Uses modern system padding rules to push layout beneath status bar notches */
+ padding: calc(env(safe-area-inset-top, 0px) + 10px) 10px 10px 10px; 
+ min-height: 100vh; 
+ transition: background-color var(--transition); 
+ overflow-y: auto !important; 
+ -webkit-overflow-scrolling: touch; 
+ }
+    
+  .container { 
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding-bottom: 40px; 
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 20px);
+  justify-content: space-between; /* Securely balances all elements vertically */
+}
+        header { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; }
+        h1 { margin: 0; color: var(--primary); font-size: 2rem; font-weight: 900; letter-spacing: -2px; }
+
+        .header-btns { display: flex; gap: 8px; }
+
+        .card { background: var(--card); border-radius: 24px; padding: 20px; box-shadow: 0 10px 30px var(--shadow); margin-bottom: 20px; border: 1px solid var(--border); transition: var(--transition); }
+        
+        .top-bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        select#activeCatSelect { 
+            flex: 1; min-width: 150px; padding: 14px; border-radius: 14px; border: 2px solid var(--border); 
+            font-size: 1rem; outline: none; background: var(--input-bg); color: var(--text);
+            cursor: pointer;
+        }
+        
+        .btn { border: none; border-radius: 12px; padding: 12px 18px; cursor: pointer; font-weight: bold; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.95rem; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-danger { background: var(--accent); color: white; }
+        .btn-ghost { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+        .btn-theme { width: 45px; height: 45px; border-radius: 12px; padding: 0; font-size: 1.2rem; background: var(--card); color: var(--text); border: 1px solid var(--border); }
+
+
+
+/* ==========================================================================
+   1. MAIN RESPONSIVE GRID ENGINE (Laptops, Desktops, Widescreens)
+   ========================================================================== */
+/* ==========================================================================
+   1. MAIN RESPONSIVE GRID ENGINE (Laptops, Desktops, Widescreens)
+   ========================================================================== */
+.paw-grid { 
+  display: grid; 
+  /* Automatically columns slide and fit side-by-side on wide viewports */
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
+  gap: 25px; 
+  justify-content: center;   
+  justify-items: center;     
+  max-width: 900px;         
+  margin: 0 auto 35px auto;  
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.paw-slot { 
+  background: var(--canvas, #1e293b) !important; 
+  width: 400px !important;    
+  height: 540px !important;   
+  position: relative; 
+  border-radius: 36px; 
+  border: 4px solid var(--border, #334155) !important; 
+  display: flex !important; 
+  flex-direction: column !important; 
+  align-items: center !important; 
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3) !important; 
+  overflow: visible !important;          
+  transition: var(--transition, all 0.3s ease) !important;
+  box-sizing: border-box !important;
+  margin: 0 auto; 
+}
+
+.paw-slot * {
+  box-sizing: border-box !important;
+}
+
+.paw-stage { 
+  position: relative !important; 
+  width: 400px !important;   
+  height: 290px !important;             
+  margin-top: 30px !important; 
+  margin-bottom: 10px !important;
+  display: block !important;
+}
+
+/* Base adjustment for the gap between toes and main pad */
+.paw-stage > div:not(.main-pad) {
+  margin-top: -12px !important; 
+}
+
+/* ==========================================================================
+   2. RE-STABILIZE TABLETS, PADS, & SMALL LAPTOPS (Screens up to 900px)
+   ========================================================================== */
+@media (max-width: 900px) {
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+
+  .paw-grid-wrapper {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+    padding: 0 20px !important;
+    box-sizing: border-box !important;
+  }
+
+  .paw-grid {
+    /* Keeps slots perfectly side-by-side or stacked cleanly without spilling out */
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)) !important;
+    gap: 20px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 10px 0 !important;
+    display: grid !important;
+  }
+}
+
+/* ==========================================================================
+   3. PERFECT PHONE SCALING ENGINE (Unified Mobile Devices under 445px)
+   ========================================================================== */
+@media (max-width: 445px) {
+ html, body {
+   overflow-x: hidden !important;
+   width: 100% !important;
+   margin: 0 !important;
+   padding: 0 !important;
+ }
+
+ .paw-grid-wrapper {
+   display: flex !important;
+   justify-content: center !important; 
+   align-items: flex-start !important;
+   width: 100% !important;
+   box-sizing: border-box !important;
+   padding: 0 16px !important; 
+ }
+
+ .paw-grid {
+   display: flex !important;
+   flex-direction: column !important;
+   align-items: center !important;
+   transform: none !important;
+   transform-origin: unset !important;
+   width: 100% !important;
+   max-width: 100% !important;
+   min-width: 0 !important;
+   margin: 0 auto !important;
+   padding: 0 !important;
+   box-sizing: border-box !important;
+ }
+
+ .paw-slot {
+   /* Fluid dynamic layout box sizes safely contain all inner details */
+   width: calc(100vw - 32px) !important;
+   max-width: 400px !important;
+   height: calc((540 / 400) * (100vw - 32px)) !important;
+   max-height: 540px !important;
+   margin: 0 auto 20px auto !important; 
+   box-sizing: border-box !important;
+ }
+
+ .paw-stage {
+   /* Locks layout space to 400px so your JavaScript toe alignment math is 100% correct */
+   width: 400px !important;
+   height: 290px !important;
+   
+   /* Scale the entire visual window from the top center using the viewport width ratio */
+   transform-origin: top center !important;
+   transform: scale(calc((100vw - 32px) / 400)) !important;
+   
+   /* Pull up the buttons below so it accounts for the scaled vertical whitespace */
+   margin-bottom: calc((290px * (1 - calc((100vw - 32px) / 400))) * -1) !important;
+   margin-top: 30px !important;
+   display: block !important;
+ }
+
+ .paw-stage > div:not(.main-pad) {
+   /* Kept your exact perfected claw separation spacing distance here */
+   margin-top: -25px !important; 
+   transition: transform 0.2s ease-in-out;
+ }
+}
+/* ==========================================================================
+   4. FIXED MOBILE ENGINE (Zero-Overflow Fluid Scaling)
+   ========================================================================= */
+@media (max-width: 445px) {
+ html, body {
+   /* Hard physical block against any horizontal shifting or clipping overflow */
+   overflow-x: hidden !important;
+   width: 100% !important;
+   margin: 0 !important;
+   padding: 0 !important;
+ }
+
+ .paw-grid-wrapper {
+   display: flex !important;
+   justify-content: center !important; 
+   align-items: flex-start !important;
+   width: 100% !important;
+   box-sizing: border-box !important;
+   padding: 0 16px !important; /* Perfect 16px balanced margin on left and right */
+ }
+
+ .paw-grid {
+   display: flex !important;
+   flex-direction: column !important;
+   align-items: center !important;
+   
+   /* REMOVED TRANSFORMS: Kills right-side clipping and ghost box overflows */
+   transform: none !important;
+   transform-origin: unset !important;
+   
+   /* Forces the outer layout block to adapt cleanly to the screen size */
+   width: 100% !important;
+   max-width: 100% !important;
+   min-width: 0 !important;
+   margin: 0 auto !important;
+   padding: 0 !important;
+   box-sizing: border-box !important;
+ }
+
+ .paw-slot {
+   /* THE PROPORTIONAL ENGINE: Scales the 400px design to match mobile screens */
+   /* Formula: (Desired Pixel Size / 400) * (100vw - 32px padding) */
+   width: calc(100vw - 32px) !important;
+   max-width: 400px !important;
+   
+   /* Scales the slot height proportionally so it mirrors your desktop design */
+   height: calc((540 / 400) * (100vw - 32px)) !important;
+   max-height: 540px !important;
+   
+   /* Perfect structural auto-centering with zero side-drifting bugs */
+   margin: 0 auto 20px auto !important; 
+   box-sizing: border-box !important;
+ }
+
+ .paw-stage {
+   /* 1. Lock layout space to 400px so your JavaScript toe alignment math is 100% correct */
+   width: 400px !important;
+   height: 290px !important;
+   
+   /* 2. Scale the entire visual window from the top center using the viewport width ratio */
+   transform-origin: top center !important;
+   transform: scale(calc((100vw - 32px) / 400)) !important;
+   
+   /* 3. Pull up the buttons below so it accounts for the scaled vertical whitespace */
+   margin-bottom: calc((290px * (1 - calc((100vw - 32px) / 400))) * -1) !important;
+   margin-top: 30px !important;
+ }
+
+/* --- ADD THIS BLOCK TO ADJUST THE TOE GAP --- */
+ .paw-stage > div:not(.main-pad) {
+   /* Negative margin-top moves the toes UP, away from the main-pad */
+   /* If they need to go the other way, change this to a positive number (like 10px) */
+   margin-top: -25px !important; 
+   
+   /* Ensures smooth adjustments during loading transitions */
+   transition: transform 0.2s ease-in-out;
+ }
+ }
+ .main-pad { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 100px; height: 85px; border-radius: 50px 50px 35px 35px; box-shadow: 0   10px 20px rgba(0,0,0,0.5); z-index: 5; }
+
+        .toe-group { position: absolute; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+        .claw { width: 35%; height: 55%; background: var(--ivory); position: absolute; top: -55%; transition: 0.3s; z-index: 30; border: 2.5px solid #000; }
+        .claw.long { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+        .claw.trimmed { height: 15%; top: 0%; border-radius: 4px; background: var(--success); opacity: 0.9; border: none; clip-path: none; }
+
+                 
+        .toe-pad { width: 100%; height: 100%; border-radius: 50%; position: relative; z-index: 10; border: 2px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        .is-editing .toe-pad { border: 4px solid #ffffff !important; box-shadow: 0 0 15px #ffffff; transform: scale(1.1); }
+        .toe-bean { width: 65%; height: 65%; border-radius: 50%; box-shadow: inset 0 4px 8px rgba(255,255,255,0.4); z-index: 11; }
+
+                            /* Baseline styling - Smaller size that leaves the middle toes high and crisp */
+        .persistent-timer { 
+            position: absolute; 
+            bottom: 220%;
+            font-size: 0.60rem; 
+            font-weight: 900; 
+            color: #fff; 
+            background: var(--primary); 
+            padding: 2px 4px; 
+            border-radius: 5px; 
+            z-index: 50; 
+            transition: transform 0.2s; 
+        }
+        .persistent-timer.overdue { background: var(--accent); }
+
+                /* ================= EXPLICIT LEFT SIDE BADGE STAGGERS (Tighter alignment) ================= */
+        /* Dialed back horizontal flare from -54px/-30px/-10px to perfectly mirror the right side profile */
+        .paw-slot .left-stagger-1 .persistent-timer { transform: translateX(-38px) translateY(42px); }
+        .paw-slot .left-stagger-2 .persistent-timer { transform: translateX(-32px) translateY(32px); }
+        .paw-slot .left-stagger-3 .persistent-timer { transform: translateX(-4px) translateY(10px); }
+
+        /* ================= EXPLICIT RIGHT SIDE BADGE STAGGERS (Remains clean) ================= */
+        .paw-slot .right-stagger-3 .persistent-timer { transform: translateX(4px) translateY(10px); }
+        .paw-slot .right-stagger-2 .persistent-timer { transform: translateX(32px) translateY(32px); }
+        .paw-slot .right-stagger-1 .persistent-timer { transform: translateX(38px) translateY(42px); }
+
+         /* ==========================================================================
+   HORIZONTAL PILL LAYOUT ENGINE [ Name || Days ] (Laptop Hover + Mobile Tap)
+   ========================================================================== */
+/* ==========================================================================
+   ULTRA-COMPACT PILL HOVER ENGINE [ Label || Days ]
+   ========================================================================== */
+.toe-info-box {
+    position: absolute;
+    bottom: 215%; /* Floats perfectly right above the toe pad circle */
+    background: var(--card, #0f172a);
+    padding: 6px 12px !important;
+    border-radius: 14px !important; /* Sleek rounded capsule shape */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5) !important;
+    border: 2px solid var(--primary, #6c5ce7) !important;
+    
+    /* Lightning fast micro-fade transitions */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px) scale(0.96);
+    transition: opacity 0.12s ease-out, transform 0.12s ease-out !important;
+    
+    /* Shrinks perfectly around short words and auto-grows for long words */
+    width: max-content !important; 
+    min-width: 0 !important;
+    max-width: none !important;
+    white-space: nowrap !important;
+    z-index: 99999 !important;
+}
+
+/* Eliminates browser utility layout blocks from compressing the 3-digit number box */
+.toe-info-box input[type=number]::-webkit-inner-spin-button, 
+.toe-info-box input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none !important; 
+    margin: 0 !important; 
+}
+
+/* Gives a desktop cue that the claw pads can be clicked or held */
+.toe-group {
+  cursor: pointer !important;
+}
+
+/* ======================================================== */
+/* NEW SHIFTING LAYOUT RULES PASTED HERE                    */
+/* ======================================================== */
+
+/* Shift the far-left claw boxes so they expand safely inward/rightward */
+.toe-group.left-stagger-1 .toe-info-box,
+.toe-group.left-stagger-2 .toe-info-box {
+  left: 0% !important;
+  transform: translateY(4px) scale(0.96) !important;
+}
+
+/* Maintain crisp opening animations for left-shifted states */
+.toe-group.left-stagger-1:hover .toe-info-box,
+.toe-group.left-stagger-1.label-open .toe-info-box,
+.toe-group.left-stagger-1.is-editing .toe-info-box,
+.toe-group.left-stagger-2:hover .toe-info-box,
+.toe-group.left-stagger-2.label-open .toe-info-box,
+.toe-group.left-stagger-2.is-editing .toe-info-box {
+  transform: translateY(0) scale(1) !important;
+}
+
+/* Shift the far-right claw boxes so they expand safely inward/leftward */
+.paw-slot .toe-group.right-stagger-1 .toe-info-box,
+.paw-slot .toe-group.right-stagger-2 .toe-info-box {
+  left: auto !important;
+  right: 0% !important;
+  transform: translateY(4px) scale(0.96) !important;
+}
+
+/* Maintain crisp opening animations for right-shifted states */
+.paw-slot .toe-group.right-stagger-1:hover .toe-info-box,
+.paw-slot .toe-group.right-stagger-1.label-open .toe-info-box,
+.paw-slot .toe-group.right-stagger-1.is-editing .toe-info-box,
+.paw-slot .toe-group.right-stagger-2:hover .toe-info-box,
+.paw-slot .toe-group.right-stagger-2.label-open .toe-info-box,
+.paw-slot .toe-group.right-stagger-2.is-editing .toe-info-box {
+  transform: translateY(0) scale(1) !important;
+}
+
+/* Laptop mouse hover triggers it instantly, Mobile single-tap toggles it */
+.toe-group:hover .toe-info-box,
+.toe-group.label-open .toe-info-box,
+.toe-group.is-editing .toe-info-box {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(0) scale(1) !important;
+}
+
+/* Keeps active rendering layers stacked cleanly */
+.toe-group:hover, 
+.toe-group.label-open,
+.toe-group.is-editing { 
+    z-index: 999999 !important; 
+}
+
+
+/* Laptop mouse hover triggers it instantly, Mobile single-tap toggles it */
+.toe-group:hover .toe-info-box,
+.toe-group.label-open .toe-info-box,
+.toe-group.is-editing .toe-info-box {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(0) scale(1) !important;
+}
+
+/* Force old structural desktop text wrappers to hide so inputs take over entirely */
+.toe-info-box .static-label,
+.toe-info-box label {
+    display: none !important;
+}
+
+.toe-info-box .field-group {
+    display: flex !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* SLEEK INPUT FIELD STYLING */
+.toe-info-box .edit-input {
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 4px 8px !important;
+    font-size: 0.8rem !important;
+    font-weight: 800 !important;
+    background: var(--input-bg, #1e293b) !important;
+    color: var(--text, #f8fafc) !important;
+    outline: none !important;
+    text-align: center;
+}
+
+/* Slim input for the text field */
+.toe-info-box .field-group:nth-child(1) .edit-input {
+    width: 110px !important; /* Fits names like 'Digit 5 Pinky' comfortably */
+    text-align: left;
+}
+
+/* Ultra-compact input for countdown days */
+.toe-info-box .field-group:nth-child(2) .edit-input {
+    width: 50px !important; /* Perfectly sized for numerical days */
+    border-left: 2px solid var(--border, #334155) !important; /* Elegant visual splitter line */
+    border-radius: 0 8px 8px 0 !important;
+}
+
+/* LIGHT MARK PLACEHOLDER HINTS (Shows when inputs are completely backspaced) */
+.toe-info-box .edit-input::placeholder {
+    color: #475569 !important; /* Soft, faded slate grey guide color */
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    text-transform: lowercase;
+    opacity: 0.7 !important;
+}
+
+/* THE LAYER BREAKOUT FIX: Instantly lifts the active toe parent over its neighbors */
+.toe-group:hover, 
+.toe-group.label-open,
+.toe-group.is-editing { 
+    z-index: 999999 !important; 
+}
+                
+        .poly-ctrl { margin-top: auto; margin-bottom: 30px; display: flex; align-items: center; gap: 15px; z-index: 100; }
+        .btn-circle { width: 42px; height: 42px; border-radius: 50%; border: none; background: var(--primary); color: white; font-weight: 900; cursor: pointer; }
+        
+        .modal-overlay { 
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000000; 
+            padding: 20px; overflow-y: auto; flex-direction: column; align-items: center; justify-content: flex-start;
+        }
+        .wizard-card, .help-card { background: var(--card); border-radius: 32px; width: 100%; max-width: 500px; padding: 40px; box-shadow: 0 25px 50px rgba(0,0,0,0.3); color: var(--text); margin: auto; }
+
+        .wizard-step { display: none; }
+        .wizard-step.active { display: block; }
+        .wizard-header { font-size: 1.8rem; font-weight: 900; margin-bottom: 30px; color: var(--primary); text-align: center; }
+        .wizard-input { width: 100%; padding: 16px; border-radius: 16px; border: 2px solid var(--border); font-size: 1.1rem; margin-bottom: 20px; background: var(--input-bg); color: var(--text); }
+        
+        .theme-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 30px; }
+        .theme-opt { width: 100%; aspect-ratio: 1; border-radius: 50%; border: 4px solid var(--border); cursor: pointer; }
+        .theme-opt.active { border-color: var(--primary); transform: scale(1.15); }
+
+        .help-card { border: 2px solid var(--primary); padding: 30px; max-width: 450px; }
+        .help-header { color: var(--primary); font-weight: 900; font-size: 1.5rem; margin-bottom: 15px; text-align: center; }
+        .help-item { display: flex; gap: 15px; margin-bottom: 20px; align-items: flex-start; }
+        .help-icon { background: var(--primary); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold; font-size: 1rem; }
+        .help-text { font-size: 0.95rem; line-height: 1.4; color: var(--text); }
+
+        .donate-container { text-align: center; margin-top: 30px; padding-bottom: 20px; }
+        .btn-donate { display: inline-block; background: #ffdd00; color: #000; text-decoration: none; padding: 20px 40px; border-radius: 50px; font-weight: 900; font-size: 1.2rem; box-shadow: 0 8px 0 #ca8a04; transition: 0.2s; border: none; cursor: pointer; }
+        .btn-donate:active { transform: translateY(4px); box-shadow: 0 4px 0 #ca8a04; }
+
+        #celebration { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 4000000; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white; overflow: hidden; padding: 20px; }
+        .rain { position: absolute; top: -50px; font-size: 2.5rem; animation: fall linear forwards; }
+        /* UPDATED VERSION: Gives the browser an exact starting transform position */
+        @keyframes fall { 
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(110vh) rotate(720deg); } 
+}
+        
+        .placeholder-box { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; color: #94a3b8; font-weight: 800; text-align: center; padding: 20px; }
+
+              /* Elevates the active paw slot container */
+        .paw-slot.active-editing {
+            z-index: 9999 !important;
+        }
+
+        /* Forces ANY active editing toe container to pop to the absolute front layer of the paw */
+        .paw-slot .toe-group.is-editing {
+            z-index: 999999 !important;
+        }
+    </style>
+</head>
+<body>
+
+<div id="helpOverlay" class="modal-overlay">
+    <div class="help-card">
+        <div class="help-header">Quick Guide ??</div>
+        
+        <!-- 1. QUICK TRIM ENTRY WITH COUNTDOWN INFO -->
+        <div class="help-item">
+            <div class="help-icon">&#9889;</div> <!-- Safe code for ? -->
+            <div class="help-text"><b>Trim / Reset:</b> Give any toe pad a <b>Quick Press</b> to mark it as trimmed. This resets the cycle and starts the countdown. A second quick press undoes it.</div>
+        </div>  
+        
+        <!-- 2. TINKER MODE CONFIGURATION ENTRY -->
+        <div class="help-item">
+            <div class="help-icon">&#9881;&#65039;</div> <!-- Safe code for ??? -->
+            <div class="help-text"><b>Tinker Mode:</b> Hold down any toe for 600ms until the <b>White Ring</b> lights up. Rename that particular claw or update its countdown cycle. Tap anywhere outside to close safely.</div>
+        </div>        
+        
+        <!-- 3. POLYDACTYL SETTINGS -->
+        <div class="help-item">
+            <div class="help-icon">+</div>
+            <div class="help-text"><b>Polydactyl:</b> Use the <b>+</b> and <b>-</b> buttons to add/remove toes (up to 10 per paw).</div>
+        </div>
+        
+        <!-- 4. AMPUTEE SETTINGS -->
+        <div class="help-item">
+            <div class="help-icon">&#10060;</div>
+            <div class="help-text"><b>Amputees:</b> Remove all toes from a paw to reveal the <b>"Remove Paw Slot"</b> button.</div>
+        </div>
+        
+        <!-- 5. COLOR THEMES -->
+        <div class="help-item">
+            <div class="help-icon">&#9728;&#65039</div>
+            <div class="help-text"><b>Themes:</b> Switch between Dark Mode and high-contrast Light Mode in the header.</div>
+        </div>
+        
+        <!-- 6. HISTORIC CARE LOG CONTROL -->
+        <div class="help-item">
+            <div class="help-icon">&#128062;</div> <!-- Safe code for ?? -->
+            <div class="help-text"><b>Care Logs:</b> Tap the clipboard (&#128203;) to see past trims. Wipe your history using <b>Clear Logs</b>, or use <b>Stop Tracking</b> and <b>Start Tracking</b> to pause or resume recording background entries anytime.</div>
+        </div>
+
+        <!-- Safely closes helpOverlay -->        
+        <!-- New App Installation Section Placed Right Here -->
+        <div style="border-top: 1px solid var(--border); margin: 20px 0 10px 0; padding-top: 15px; font-size: 14px; text-align: left; line-height: 1.6; color: var(--text);">
+            <div style="font-weight: bold; margin-bottom: 8px; color: var(--primary); font-size: 15px;">&#128242; App Installation Guide</div>
+            &bull; <b>Mobile:</b> Tap your browser's <b>Share</b> or <b>Menu</b> button and select <b>"Add to Home Screen"</b> to launch this in full-screen mode with custom local alerts.<br>
+            &bull; <b>Desktop:</b> Click the App Install icon in your browser's address bar (or the 3-dot menu) and select <b>"Install Page as App"</b> to run it in a clean standalone window.
+        </div>
+        <!-- NEW PROFILE BACKUP GUIDE SECTION -->
+        <div style="border-top: 1px solid var(--border); margin: 15px 0 10px 0; padding-top: 15px; font-size: 14px; text-align: left; line-height: 1.6; color: var(--text);">
+            <div style="font-weight: bold; margin-bottom: 8px; color: var(--primary); font-size: 15px;">&#128190; Profile Backup & Restore</div>
+            &bull; <b>Export Data:</b> Saves a tiny backup file to your phone or computer. Do this once a month or before clearing your browser history so you never lose your pet charts!<br>
+            &bull; <b>Import Data:</b> If you get a new phone, clear your history, or tracking timelines go missing, click this button and select your saved backup file to instantly restore your data.
+               </div>
+        <!-- PASTE THE NEW ENCODED PWA INSTALLATION BUTTON TRIGGER HERE -->
+        <button id="pwaInstallBtn" onclick="ctrl.triggerPwaInstall()" style="display:none; width:100%; margin-top:15px; padding:12px; background:#ff9f43; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
+            &#128229; Install Tippy Toes App
+        </button>
+        <button class="btn btn-primary" style="width: 100%; margin-top: 10px; padding: 18px;" onclick="ctrl.closeHelp()">Got it!</button>
+    </div>
+</div>
+
+<div id="celebration" onclick="ctrl.closeCelebration()">
+    <!-- Safe HTML code for the full-color Paw Print icon ?? -->
+    <div style="font-size: 5rem; margin-bottom: 10px;">&#128062;</div>
+    
+    <h1 style="color: var(--success);">PAW-FECT!</h1>
+    
+    <p>
+        All active claws are trimmed!<br>
+        Time to give treats to everyone! <br>
+        Everything is safe! The countdown is continuing for the next trim. &#9203; 
+    </p>
+    
+    <div id="rain-container"></div>
+    <button class="btn btn-primary">CLOSE</button>
+</div>
+
+<div class="container">
+        <header>
+        <h1>Tippy Toes &#128062;</h1>
+        <div class="header-btns">
+            <button class="btn btn-theme" onclick="ctrl.toggleTheme()" id="themeToggle">??</button>
+            <button class="btn btn-theme" onclick="ctrl.openHelp()" style="font-weight: 900;">?</button>
+            <button class="btn btn-theme" onclick="ctrl.openHistory()" title="View History Log">&#128203;</button>
+            <button class="btn btn-theme" onclick="ctrl.requestNotifications(this)" title="Enable Lockscreen Alerts">&#128276;</button>
+        </div>
+    </header>
+
+<div class="card top-bar" id="topNav" style="margin-top: 0px !important; padding-top: 8px !important;">
+    <select id="activeCatSelect" onchange="ctrl.switchCat()"></select>
+    <button class="btn btn-primary" onclick="wizard.open(true)">+ Add Pet</button>
+    <button class="btn btn-danger" onclick="ctrl.removeCurrentCat()">&#10006; Remove Pet</button>
+    <button class="btn btn-ghost" onclick="wizard.open(false)">Settings</button>
+
+    <!-- DATA BACKUP ROW INJECTED HERE -->
+    <div class="data-backup-row" style="width: 100%; text-align: center; margin: 5px 0 0 0; padding: 5px 0 0 0; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; box-sizing: border-box;">
+        <button class="btn btn-ghost" style="font-size: 0.72rem; padding: 4px 10px; margin: 0;" onclick="ctrl.exportProfiles()">&#128228; EXPORT DATA</button>
+        <button class="btn btn-ghost" style="font-size: 0.72rem; padding: 4px 10px; margin: 0;" onclick="document.getElementById('importFile').click()">&#128229; IMPORT DATA</button>
+        <input type="file" id="importFile" accept=".json" style="display: none;" onchange="ctrl.importProfiles(this)">
+    </div>
+</div>
+    <div class="paw-grid-wrapper">
+    <div class="paw-grid" id="pawGrid"></div>
+</div>
+
+    <div class="card" id="journalCard">
+        <h3 style="margin:0 0 10px 0; font-size: 0.9rem;">&#129526; Care Journal</h3>
+        <textarea id="catNotes" style="width:100%; height:80px; border-radius:16px; border:2px solid var(--border); padding:15px; font-size: 0.95rem; background: var(--input-bg); color: var(--text);" placeholder="Medicine or vet notes..." oninput="ctrl.saveNotes()"></textarea>
+    </div>
+
+ <!-- Feedback and Feature Requests Portal -->
+ <div class="card" id="feedbackFormCard" style="max-width: 450px; margin: 20px auto; display: none;">
+   <h3 style="margin: 0 0 8px 0; font-size: 1rem; text-align: center; color: var(--primary);">&#128227; Suggestions & Requests</h3>
+   <p style="font-size: 0.8rem; color: #94a3b8; text-align: center; margin-top: 0; margin-bottom: 15px;">Have an idea or spotted a bug? Let us know without cluttering your email servers.</p>
+   <form action="https://formspree.io" method="POST" id="feedbackForm" onsubmit="return ctrl.handleFeedbackSubmit(event)">
+     <input type="email" name="email" style="width:100%; border: 2px solid var(--border); border-radius: 12px; padding: 12px; font-size: 0.95rem; background: var(--input-bg); color: var(--text); margin-bottom: 12px;" placeholder="Your Email Address (Optional)">
+     <textarea name="message" style="width:100%; border: 2px solid var(--border); border-radius: 12px; padding: 12px; font-size: 0.95rem; background: var(--input-bg); color: var(--text); margin-bottom: 12px;" rows="3" required placeholder="What features should we add next? Tell us here..."></textarea>
+     <button type="submit" class="btn btn-primary" style="width:100%; padding:10px;">Submit Feedback</button>
+   </form>
+ </div>
+
+        <!-- Finalized Donation Container -->
+    <div style="background: var(--card); border: 2px solid var(--border); border-radius: 24px; padding: 20px; margin: 20px auto; max-width: 450px; text-align: center; box-shadow: 0 8px 32px var(--shadow);">
+        <div style="font-weight: bold; color: var(--text); margin-bottom: 12px; font-size: 16px;">Buy My Cat Treats &#128031; </div>
+        <div style="display: flex; gap: 12px; justify-content: center;">
+            <!-- Global PayPal Button -->
+            <a href="https://paypal.me/SchifraD" target="_blank" style="flex: 1; background: #003087; color: #ffffff; padding: 14px; border-radius: 14px; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-block; box-shadow: 0 4px 12px rgba(0,48,135,0.3);">PayPal</a>
+            
+            <!-- Domestic Paytm UPI Button -->
+            <a href="upi://pay?pa=9690462177@ptyes&pn=Schifra&cu=INR" style="flex: 1; background: #00baf2; color: #ffffff; padding: 14px; border-radius: 14px; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-block; box-shadow: 0 4px 12px rgba(0,186,242,0.3);">Paytm</a>
+        </div>
+    </div>
+        </div>
+
+<!-- Visual Log Window Overlay Layer -->
+<div id="historyOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:10000; align-items:center; justify-content:center; padding:20px;">
+    <div style="background:#2d3436; color:white; padding:25px; border-radius:15px; max-width:450px; width:100%; max-height:80vh; overflow-y:auto; box-shadow:0 10px 25px rgba(0,0,0,0.5);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid #444; padding-bottom:10px;">
+            <h3 style="margin:0; font-size:1.4rem;">&#128062; Care Log History</h3>
+            <button onclick="ctrl.closeHistory()" style="background:none; border:none; color:#aaa; font-size:1.6rem; cursor:pointer;">&times;</button>
+        </div>
+
+
+ <div style="background: rgba(108, 92, 231, 0.15); border: 1px solid var(--primary); padding: 12px; border-radius: 10px; font-size: 0.82rem; line-height: 1.4; color: #e2e8f0; margin-bottom: 15px;">
+   <b>Log Privacy Notice:</b> Claws tapped are stored locally in your browser storage. You can instantly clear your past timeline entries or pause log tracking entirely using the actions below.
+ </div>
+
+<!-- 1. The new status indicator light goes here -->
+<div id="trackingStatusIndicator" style="font-size: 0.8rem; font-weight: bold; margin-bottom: 8px; text-align: left; padding-left: 4px; color: #2ecc71;">
+    &#128994; History Recording: ACTIVE
+</div>
+
+<!-- 2. Your flex button container stays safely right below it -->
+<div style="display: flex; gap: 10px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #444; justify-content: space-between;">
+   <button class="btn btn-danger" style="flex: 1; font-size: 0.78rem; padding: 8px;" onclick="ctrl.clearAllHistory()">&#128465; Clear Logs</button>
+   <button class="btn btn-ghost" id="toggleHistoryTrackingBtn" style="flex: 1; font-size: 0.78rem; padding: 8px; border-color: #666; background: rgba(0,0,0,0.2); color: #ffffff;" onclick="ctrl.toggleHistoryTracking()">&#128721; Stop Tracking</button>
+</div>
+        
+
+<div id="historyList" style="display:flex; flex-direction:column; gap:10px;"></div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="wizardOverlay">
+    <div class="wizard-card">
+        <div class="wizard-step" id="step1">
+            <div class="wizard-header">Pet Profile</div>
+            <label style="font-weight: 800; font-size: 0.8rem; color: #94a3b8;">PET'S NAME</label>
+            <input type="text" id="wizName" class="wizard-input" placeholder="e.g. Luna">
+            <button class="btn btn-primary" style="width:100%" onclick="wizard.next()">Next</button>
+        </div>
+        <div class="wizard-step" id="step2">
+            <div class="wizard-header">Pet Colour</div>
+            <div id="wizThemeGrid" class="theme-grid"></div>
+            <button class="btn btn-primary" style="width:100%" onclick="wizard.next()">Next</button>
+        </div>
+        <div class="wizard-step" id="step3">
+            <div class="wizard-header">Schedules</div>
+            <div style="display:flex; gap:10px">
+                <div style="flex:1">
+    <label style="font-weight: 800; font-size: 0.75rem; color: #94a3b8; display: block; margin-bottom: 5px;">
+        &#x23F0;  Trim Timer for Front Paws (in days)
+    </label>
+    <input type="number" id="wizFront" class="wizard-input">
+</div>
+<div style="flex:1">
+    <label style="font-weight: 800; font-size: 0.75rem; color: #94a3b8; display: block; margin-bottom: 5px;">
+        &#x23F0;  Trim Timer for Back Paws (in days)
+    </label>
+    <input type="number" id="wizBack" class="wizard-input">
+</div>
+ </div> 
+            <button class="btn btn-primary" style="width:100%" onclick="wizard.next()">Review</button>
+        </div>
+        <div class="wizard-step" id="step4">
+            <div class="wizard-header">Review Profile</div>
+            <div id="revContent" style="background:var(--bg); padding:20px; border-radius:16px; border:1px solid var(--border); line-height: 1.6;"></div>
+            <button class="btn btn-primary" style="width:100%; margin-top:20px" onclick="wizard.finish()">Save Profile</button>
+            <button class="btn btn-ghost" style="width:100%; margin-top:10px" onclick="wizard.close()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Anatomical Numbering: Digit 1 (Dewclaw) on Front; Digit 1 (Index) on Back.
+// Anatomical Numbering: Digit 1 (Dewclaw) on Front; Digit 1 (Index) on Back.
+const DEFAULTS = {
+    fl: ["Digit 5 (Pinky)", "Digit 4 (Ring)", "Digit 3 (Middle)", "Digit 2 (Index)", "Digit 1 (Dewclaw)"],
+    fr: ["Digit 1 (Dewclaw)", "Digit 2 (Index)", "Digit 3 (Middle)", "Digit 4 (Ring)", "Digit 5 (Pinky)"],
+    bl: ["Digit 4 (Pinky)", "Digit 3 (Ring)", "Digit 2 (Middle)", "Digit 1 (Index)"],
+    br: ["Digit 1 (Index)", "Digit 2 (Middle)", "Digit 3 (Ring)", "Digit 4 (Pinky)"]
+};
+
+let activeTouchType = null; // Prevents mobile screens from firing duplicate clicks
+
+
+const THEMES = {
+    ginger: { fur: "linear-gradient(135deg, #ff9f43, #ee5253)", pad: "#ff8a7a" },
+    black: { fur: "linear-gradient(135deg, #2d3436, #1c1c1c)", pad: "#111" },
+    white: { fur: "linear-gradient(135deg, #ffffff, #f1f2f6)", pad: "#ffb8b8" },
+    grey: { fur: "linear-gradient(135deg, #95a5a6, #7f8c8d)", pad: "#636e72" },
+    siamese: { fur: "linear-gradient(135deg, #f5ebe0, #4a3728)", pad: "#3c2f2f" },
+    blue: { fur: "linear-gradient(135deg, #747d8c, #2f3542)", pad: "#57606f" },
+    calico: { fur: "linear-gradient(45deg, #ff9f43 33%, #ffffff 33%, #ffffff 66%, #2d3436 66%)", pad: "pinto" },
+    tortie: { fur: "radial-gradient(#ff9f43, #2d3436, #111)", pad: "#111" },
+    cream: { fur: "linear-gradient(135deg, #fff9ec, #f2d2bd)", pad: "#fbc4ab" },
+    chocolate: { fur: "linear-gradient(135deg, #5d4037, #3e2723)", pad: "#2d1b1b" }
+};
+
+let cats = JSON.parse(localStorage.getItem('cc_pro_v54')) || [];
+let activeIdx = parseInt(localStorage.getItem('cc_idx_v54')) || 0;
+let editModeToe = { pIdx: -1, tIdx: -1 };
+let pressTimer = null;
+
+const wizard = {
+    step: 1, creating: true, theme: 'ginger',
+    open(creating) {
+        this.creating = creating; this.step = 1;
+        document.getElementById('wizardOverlay').style.display = 'flex';
+        this.setTheme('ginger');
+        if(!creating && cats[activeIdx]) {
+            const c = cats[activeIdx];
+            document.getElementById('wizName').value = c.name;
+            document.getElementById('wizFront').value = c.fDef;
+            document.getElementById('wizBack').value = c.bDef;
+            this.setTheme(c.theme);
+        } else {
+            document.getElementById('wizName').value = ""; document.getElementById('wizFront').value = 14; document.getElementById('wizBack').value = 30;
+        }
+        this.render();
+    },
+    setTheme(t) {
+        this.theme = t;
+        const tg = document.getElementById('wizThemeGrid');
+        tg.innerHTML = Object.entries(THEMES).map(([k,v]) => `<div class="theme-opt ${k===t?'active':''}" style="background:${v.fur}" onclick="wizard.setTheme('${k}')"></div>`).join('');
+    },
+    next() { this.step++; this.render(); },
+    render() {
+        document.querySelectorAll('.wizard-step').forEach((el, i) => el.classList.toggle('active', (i+1) === this.step));
+        if(this.step === 4) {
+            document.getElementById('revContent').innerHTML = `<b>NAME:</b> ${document.getElementById('wizName').value}<br><b>COAT:</b> ${this.theme.toUpperCase()}<br><b>CYCLE:</b> F:${document.getElementById('wizFront').value}d / B:${document.getElementById('wizBack').value}d`;
+        }
+    },
+        finish() {
+        const name = document.getElementById('wizName').value || "Unnamed";
+        const f = parseInt(document.getElementById('wizFront').value) || 14;
+        const b = parseInt(document.getElementById('wizBack').value) || 30;
+        if(this.creating) {
+            cats.push({
+                name, theme: this.theme, fDef: f, bDef: b, notes: "", celebrated: false,
+                paws: {
+                    fl: { toes: DEFAULTS.fl.map(l=>({label:l, lastTrim:0})), hidden:false },
+                    // Reversing right paw labels maps them perfectly to your mirror engine math
+                    fr: { toes: DEFAULTS.fr.map(l=>({label:l, lastTrim:0})), hidden:false },
+                    bl: { toes: DEFAULTS.bl.map(l=>({label:l, lastTrim:0})), hidden:false },
+                    br: { toes: DEFAULTS.br.map(l=>({label:l, lastTrim:0})), hidden:false }
+                }
+            });
+            activeIdx = cats.length - 1;
+        } else {
+            const c = cats[activeIdx]; c.name = name; c.theme = this.theme; c.fDef = f; c.bDef = b;
+        }
+        this.close(); ctrl.save();
+    },   
+ close() { document.getElementById('wizardOverlay').style.display = 'none'; }
+
+};
+
+const ctrl = {
+        exportProfiles() {
+        try {
+            const rawPro = localStorage.getItem('cc_pro_v54');
+            const rawIdx = localStorage.getItem('cc_idx_v54');
+            
+            if(!rawPro || !rawIdx) {
+                alert("No active profiles found to export yet!");
+                return;
+            }
+
+            const backupPayload = {
+                profiles: JSON.parse(rawPro),
+                currentIndex: JSON.parse(rawIdx),
+                timestamp: Date.now(),
+                version: "54"
+            };
+
+            const blob = new Blob([JSON.stringify(backupPayload, null, 2)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const anchor = document.createElement("a");
+            anchor.href = url;
+            anchor.download = `TippyToes_Backup_${new Date().toISOString().slice(0,10)}.json`;
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+            URL.revokeObjectURL(url);
+        } catch(e) {
+            alert("Export failed: " + e.message);
+        }
+    },
+
+    importProfiles(inputElement) {
+        const file = inputElement.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const parsedData = JSON.parse(e.target.result);
+                
+                if (!parsedData.profiles || parsedData.currentIndex === undefined) {
+                    throw new Error("Invalid or unrecognizable backup file structure.");
+                }
+
+                if (confirm("Importing data will replace all your current pet tracker cards. Proceed?")) {
+                    localStorage.setItem('cc_pro_v54', JSON.stringify(parsedData.profiles));
+                    localStorage.setItem('cc_idx_v54', JSON.stringify(parsedData.currentIndex));
+                    
+                    alert("Profiles successfully restored! Reloading application...");
+                    window.location.reload();
+                }
+            } catch (err) {
+                alert("Import failed: " + err.message);
+            }
+        };
+        reader.readAsText(file);
+    },
+    init() {
+// DATA INTEGRITY CHECK: Safety reset if the tracking index slips out of bounds
+    if (activeIdx >= cats.length || activeIdx < 0) {
+        activeIdx = cats.length > 0 ? 0 : 0;
+        localStorage.setItem('cc_idx_v54', activeIdx);
+    }
+
+    const savedTheme = localStorage.getItem('cc_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.getElementById('themeToggle').innerText = savedTheme === 'dark' ? '\u2600\uFE0F' : '\u263D';
+    
+    if(cats.length === 0) wizard.open(true); else this.render();
+    if(!localStorage.getItem('cc_onboarded')) this.openHelp();
+
+    // Restore the bell button design look based on previous toggle settings
+    const currentMuteState = localStorage.getItem('cc_alerts_muted') === 'true';
+    const nBtn = document.querySelector('[onclick*="requestNotifications"]');
+    if (nBtn && currentMuteState) {
+        nBtn.innerHTML = "&#128263;"; // Safe code format for muted emoji!
+        nBtn.style.background = "rgba(255,118,117,0.15)";
+        nBtn.style.borderColor = "#ff7675";
+    }
+
+// OPTIMIZATION: Waits 300ms for the page to load smoothly before running the background scan
+    setTimeout(() => {
+        this.checkOverdueAlerts();
+    }, 300); // 300ms delay eliminates the initial launch hang entirely!     
+},
+openHelp() { document.getElementById('helpOverlay').style.display = 'flex'; },
+    closeHelp() { document.getElementById('helpOverlay').style.display = 'none'; localStorage.setItem('cc_onboarded', 'true'); },
+    toggleTheme() {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('cc_theme', next);
+        document.getElementById('themeToggle').innerText = next === 'dark' ? '☀️' : '🌙';
+    },
+        save() { 
+        // 1. Remember exactly where you are scrolled
+        const currentScroll = window.scrollY;
+
+        localStorage.setItem('cc_pro_v54', JSON.stringify(cats)); 
+        localStorage.setItem('cc_idx_v54', activeIdx); 
+        this.render(); 
+
+        // 2. Put the window right back to prevent the jump
+        window.scrollTo(0, currentScroll);
+    },
+    switchCat() { activeIdx = parseInt(document.getElementById('activeCatSelect').value); this.render(); },
+    
+    removeCurrentCat() {
+        if (cats.length === 0) return;
+        const currentName = cats[activeIdx].name;
+        if(confirm(`Are you sure you want to permanently remove ${currentName}'s profile?`)) {
+            cats.splice(activeIdx, 1);
+            if (cats.length === 0) {
+                activeIdx = 0;
+                wizard.open(true);
+            } else {
+                activeIdx = Math.max(0, activeIdx - 1);
+            }
+            this.save();
+        }
+    },
+
+    render() {
+        const grid = document.getElementById('pawGrid');
+        const nav = document.getElementById('topNav');
+        const journal = document.getElementById('journalCard');
+
+        if (cats.length === 0) {
+            grid.innerHTML = ''; nav.style.display = 'none'; journal.style.display = 'none';
+            wizard.open(true); return;
+        }
+
+        nav.style.display = 'flex'; journal.style.display = 'block';
+        const cat = cats[activeIdx]; if (!cat) { activeIdx = 0; this.render(); return; }
+
+        const theme = THEMES[cat.theme];
+        document.getElementById('activeCatSelect').innerHTML = cats.map((c, i) => `<option value="${i}" ${i==activeIdx?'selected':''}>${c.name}</option>`).join('');
+        document.getElementById('catNotes').value = cat.notes || "";
+
+        grid.innerHTML = '';
+        ['fl', 'fr', 'bl', 'br'].forEach((key, pIdx) => {
+            const paw = cat.paws[key];
+            const slot = document.createElement('div');
+
+            // Dynamic elevation check
+            const isPawEditing = editModeToe.pIdx === pIdx;
+            slot.className = `paw-slot ${isPawEditing ? 'active-editing' : ''}`;
+
+// ---> ADD THIS NEW MAP RIGHT HERE:
+    const pawTitles = { 
+        fl: "FRONT LEFT PAW", 
+        fr: "FRONT RIGHT PAW", 
+        bl: "BACK LEFT PAW", 
+        br: "BACK RIGHT PAW" 
+    };
+
+ 
+            if(paw.hidden) {
+                slot.innerHTML = `<div class="placeholder-box">LIMB REMOVED<button class="btn btn-primary" style="margin-top:20px; font-size:0.75rem" onclick="ctrl.restorePawSlot('${key}')">RESTORE PAW</button></div>`;
+                grid.appendChild(slot); return;
+            }
+             
+            // Move this line here so the browser can calculate the width
+            grid.appendChild(slot); 
+            
+            const slotWidth = 400;
+            const scaleFactor = slotWidth / 450;       /* Calculates fluid scaling ratio */
+
+            const numToes = paw.toes.length;
+            const arcWidth = Math.min(275, 150 + (numToes * 13));
+            const centerX = slotWidth / 2;             /* Mathematically balances claws in the center */
+            const centerY = 230 * scaleFactor;         
+            const radius = 120 * scaleFactor;          
+            
+            // Baseline centered arc math
+            let startAngle = 180 + (180 - arcWidth) / 2;
+
+
+            
+            // THE UNIVERSAL RIGHT-SIDE FIX: Catches 'fr' and 'br' cleanly
+            const isRightPaw = key.toLowerCase().includes('right') || key.toLowerCase().endsWith('r');
+            
+            // MIRROR ENGINE UPDATE: Reflects the starting arc beautifully across the 270-degree axis on right limbs
+            if (isRightPaw) {
+                startAngle = 540 - startAngle - arcWidth;
+            }
+ 
+            const toeDim = 46 * scaleFactor;           /* Resizes individual toes cleanly on mobile */
+ 
+            let toesHtml = '';
+                                
+            paw.toes.forEach((toe, index) => {
+                // Keep 'i' strictly for geometry layout coordinates
+                const i = isRightPaw ? (numToes - 1 - index) : index;
+
+                const angle = startAngle + (arcWidth / (numToes + 1)) * (i + 1);
+                const rad = angle * (Math.PI / 180);
+                const x = centerX + radius * Math.cos(rad) - (toeDim/2);
+                const y = centerY + radius * Math.sin(rad) - (toeDim/2);                
+                const limit = toe.override || (key.startsWith('f') ? cat.fDef : cat.bDef);
+                const days = Math.ceil(((toe.lastTrim + (limit * 86400000)) - Date.now()) / 86400000);
+                
+              
+                // Use 'index' for logical data array targeting so clicks hit the right toe record
+                const isEditing = editModeToe.pIdx === pIdx && editModeToe.tIdx === index;
+
+                // TRACKS IF THE DEVICE HAS TAPPED OPEN THIS SPECIFIC BOX ON MOBILE/TABLET
+                const isLabelOpen = (window.activeMobileLabelToe && window.activeMobileLabelToe.pIdx === pIdx && window.activeMobileLabelToe.tIdx === index);
+
+                const half = (numToes - 1) / 2;                
+                const stackingOrder = 100 + Math.abs(i - half);
+
+                // FIXED VECTOR: Evaluates geometry position 'i' so staggers match the screen sides perfectly
+                let staggerClass = '';
+                const lastIdx = numToes - 1;
+                if (i === 0) staggerClass = 'left-stagger-1';
+                else if (i === 1) staggerClass = 'left-stagger-2';
+                else if (i === 2) staggerClass = 'left-stagger-3';
+                else if (i === lastIdx) staggerClass = 'right-stagger-1';
+                else if (i === lastIdx - 1) staggerClass = 'right-stagger-2';
+                else if (i === lastIdx - 2) staggerClass = 'right-stagger-3';
+
+let correctedLabel = toe.label;
+try {
+    const isRightPaw = key.toLowerCase().includes('right') || key.toLowerCase().endsWith('r') || key === 'fr' || key === 'br';
+    if (isRightPaw && DEFAULTS[key]) {
+        correctedLabel = DEFAULTS[key][DEFAULTS[key].length - 1 - index] || toe.label;
+    }
+} catch(err) {
+    correctedLabel = toe.label;
+}
+                toesHtml += `
+ <div class="toe-group ${staggerClass} ${isEditing?'is-editing':''} ${isLabelOpen?'label-open':''}" style="left:${x}px; top:${y}px; width:${toeDim}px; height:${toeDim*1.2}px; z-index:${stackingOrder};"
+ onmousedown="ctrl.startPress(event, ${pIdx}, ${index}, 'mouse')" 
+ onmouseup="ctrl.endPress(event, '${key}', ${index}, 'mouse')"
+ ontouchstart="ctrl.startPress(event, ${pIdx}, ${index}, 'touch')" 
+ ontouchend="ctrl.endPress(event, '${key}', ${index}, 'touch')">                       
+ <div class="persistent-timer ${days<=0?'overdue':''}">${days<=0?'TRIM':days+' d'}</div>
+      <div class="toe-info-box" onclick="event.stopPropagation()">
+     <!-- CHANGER ENGAGED HERE: If the label is open via tap OR long-press, instantly show editable input fields! -->
+     ${(!isEditing && !isLabelOpen) ? `
+         <!-- STANDARD QUICK GLANCE VIEW (When just hovering on desktop) -->
+         <div style="display: flex !important; flex-direction: row !important; align-items: center !important; gap: 8px !important; margin: 0 !important; padding: 0 !important;">
+             <span class="pill-label" style="font-size: 0.8rem !important; font-weight: 800 !important; color: var(--text, #f8fafc) !important; white-space: nowrap !important;">
+                 ${correctedLabel}
+             </span>
+             <span class="pill-days" style="font-size: 0.8rem !important; font-weight: 900 !important; color: #000000 !important; background: #e2e8f0 !important; padding: 2px 8px !important; border-radius: 6px !important; white-space: nowrap !important;">
+                 ${limit} days
+             </span>
+         </div>
+     ` : `
+         <!-- FULLY ACTIVE EDITABLE INPUT FIELDS (Shows immediately when tapped or long-pressed) -->
+         <div style="display: flex !important; flex-direction: row !important; align-items: center !important; gap: 4px !important; margin: 0 !important; padding: 0 !important;">
+             <input class="edit-input" type="text" value="${correctedLabel}" 
+                    placeholder="label"
+                    style="width: 145px !important; border: none !important; border-radius: 8px !important; padding: 4px 8px !important; font-size: 0.8rem !important; font-weight: 800 !important; background: var(--input-bg, #1e293b) !important; color: var(--text, #f8fafc) !important; outline: none !important; text-align: left;"
+                    onblur="ctrl.renameToe('${key}', ${index}, this.value)">
+             
+             <div style="display: flex !important; align-items: center !important; background: #e2e8f0 !important; border-radius: 8px !important; padding-right: 6px !important;">
+                 <input class="edit-input" type="number" value="${limit}" 
+                        placeholder="0"
+                        min="1" max="999"
+                        style="width: 48px !important; border: none !important; background: transparent !important; color: #000000 !important; font-weight: 900 !important; font-size: 0.8rem !important; padding: 4px 2px 4px 6px !important; outline: none !important; text-align: center; -moz-appearance: textfield;"
+                        oninput="ctrl.updateOverride('${key}', ${index}, this.value)"
+                        onblur="ctrl.save()">
+                 <span style="font-size: 0.7rem !important; font-weight: 900 !important; color: #000000 !important; text-transform: lowercase; pointer-events: none;">days</span>
+             </div>
+         </div>
+     `}
+ </div>
+
+<div class="toe-pad" style="background:${theme.fur}"><div class="toe-bean" style="background:${theme.pad==='pinto'?(index%2===0?'#ffb8b8':'#2d3436'):theme.pad}"></div></div>
+ <div class="claw ${days<=0?'long':'trimmed'}"></div>
+ </div>`;           
+ });                        
+            slot.innerHTML = `
+                <div style="font-size: 0.75rem; font-weight: 900; color: #94a3b8; margin-top: 15px; letter-spacing: 2px;">${pawTitles[key]}</div>
+                <div class="paw-stage"><div class="main-pad" style="background:${theme.fur}"></div>${toesHtml}</div>
+                <div class="poly-ctrl">
+                    <button class="btn-circle" onclick="ctrl.adjustToe('${key}',-1)">-</button>
+                    <span style="color:#fff; font-weight:900; font-size:1.5rem;">${numToes}</span>
+                    <button class="btn-circle" onclick="ctrl.adjustToe('${key}', 1)">+</button>
+                </div>
+               
+                ${numToes === 0 ? `<button style="margin-bottom:15px; font-size:0.65rem; padding:8px 12px; border-radius:10px; border:none; background:#334155; color:#94a3b8; cursor:pointer" onclick="ctrl.removePawSlot('${key}')">REMOVE PAW SLOT</button>` : ''}
+            `;
+                    });
+
+        this.checkCelebration();
+    },
+    removePawSlot(key) { cats[activeIdx].paws[key].hidden = true; this.save(); },
+    restorePawSlot(key) {
+        const cat = cats[activeIdx]; cat.paws[key].hidden = false;
+        cat.paws[key].toes = DEFAULTS[key].map(l => ({ label: l, lastTrim: 0 }));
+        this.save();
+    },
+
+      
+startPress(e, pIdx, tIdx, type) { 
+  // 1. CRITICAL INPUT SAFETY OVERRIDE
+  if (e.target.tagName === 'INPUT' || e.target.closest('.toe-info-box')) {
+    return; 
+  }
+
+  if (type === 'touch' && e.cancelable) e.preventDefault();
+  if (activeTouchType && activeTouchType !== type) return;
+  activeTouchType = type;
+  
+  // Track if this interaction turned into a long press
+  this.isLongPress = false;
+
+  if (pressTimer) clearTimeout(pressTimer);
+  
+  // Long press timer to trigger Tinker/Edit Mode (600 milliseconds)
+  pressTimer = setTimeout(() => { 
+    this.isLongPress = true; // Mark as long press so endPress ignores it
+    editModeToe = (editModeToe.pIdx === pIdx && editModeToe.tIdx === tIdx) ? {pIdx:-1,tIdx:-1} : {pIdx, tIdx}; 
+    this.render(); 
+    pressTimer = null; 
+  }, 600); 
+},
+
+ 
+endPress(e, pk, ti, type) { 
+  // 1. CRITICAL INPUT SAFETY OVERRIDE
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL' || e.target.closest('.toe-info-box')) {
+    if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; }
+    return; 
+  }
+
+  // 2. Clear standard long press timers immediately
+  if (pressTimer) { 
+    clearTimeout(pressTimer); 
+    pressTimer = null; 
+  }
+
+  if (type === 'touch' && e.cancelable) {
+    e.preventDefault();
+  }
+
+  if (activeTouchType && activeTouchType !== type) return;
+
+  // 3. THE ULTIMATE MENUS GUARD
+  // If the user held down long enough to trigger tinker mode, exit immediately.
+  // Also exit if the menu is actively open so closing it doesn't trim the nail.
+  const clawGroup = e.target.closest('.toe-group');
+  const isMenuOpen = clawGroup && (clawGroup.classList.contains('label-open') || clawGroup.classList.contains('is-editing'));
+
+  if (this.isLongPress || isMenuOpen) {
+    this.isLongPress = false; // Reset the flag
+    setTimeout(() => { activeTouchType = null; }, 100);
+    return; // Stop right here, do NOT toggle the nail
+  }
+  
+  // 4. Standard quick tap execution (Only runs if it was a fast tap with NO menu open)
+  this.toggleToe(pk, ti); 
+  
+  setTimeout(() => { activeTouchType = null; }, 100);
+},
+
+      
+toggleToe(pk, ti) { 
+    const cat = cats[activeIdx];
+    const toe = cat.paws[pk].toes[ti]; 
+    const limit = toe.override || (pk.startsWith('f') ? cat.fDef : cat.bDef);
+    
+    // Check if we are marking it as trimmed or untrimmed
+    const isNowTrimmed = !((toe.lastTrim + (limit * 86400000)) > Date.now());
+    toe.lastTrim = isNowTrimmed ? Date.now() : 0; 
+    cat.celebrated = false;
+
+    // If it was just trimmed, record this exact timestamp to our history tracker
+        if (isNowTrimmed && !cat.historyDisabled) {
+        if (!cat.history) cat.history = []; // Initialize history array if it doesn't exist yet
+        
+        // Human-friendly paw name mapper
+        const pawNames = { fl: "Front Left", fr: "Front Right", bl: "Back Left", br: "Back Right" };
+        const labelText = toe.label || (DEFAULTS[pk] ? DEFAULTS[pk][ti] : "Extra Toe");
+
+        cat.history.unshift({
+            timestamp: Date.now(),
+            paw: pawNames[pk] || pk.toUpperCase(),
+            toe: labelText
+        });
+
+        // Optional: Keep only the last 100 entries to prevent local storage overcrowding
+        if (cat.history.length > 100) cat.history.pop();
+    }
+
+    this.save();
+}, 
+// 1. OPEN THE LOG WINDOW
+openHistory() {
+    const cat = cats[activeIdx];
+    const container = document.getElementById('historyList');
+    document.getElementById('historyOverlay').style.display = 'flex';
+    this.updateHistoryTrackingBtnUI();
+
+    if (!cat || !cat.history || cat.history.length === 0) {
+        container.innerHTML = `<p style="text-align:center; color:#aaa; margin:20px 0;">No claws trimmed yet! Start tapping your pet's claws to build a tracking history.</p>`;
+        return;
+    }
+
+    container.innerHTML = cat.history.map((item, index) => {
+        const dateObj = new Date(item.timestamp);
+        const formattedDate = dateObj.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+        
+        return `
+            <div style="background:rgba(255,255,255,0.05); padding:12px; border-radius:8px; border-left:4px solid #ff9f43; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+                <div style="flex-grow:1;">
+                    <strong style="color:#fff; display:block; font-size:0.95rem;">${item.toe}</strong>
+                    <span style="color:#aaa; font-size:0.8rem;">${item.paw} Paw</span>
+                </div>
+                <div style="text-align:right; min-width:85px;">
+                    <span style="color:#ff9f43; font-size:0.85rem; font-weight:bold; display:block;">${formattedDate}</span>
+                </div>
+                <button onclick="ctrl.deleteHistoryItem(${index})" style="background:none; border:none; color:#ff4d4d; font-size:1.2rem; cursor:pointer; padding:5px 8px; line-height:1;">&times;</button>
+            </div>
+        `;
+    }).join('');
+},
+
+// 2. CLOSE THE LOG WINDOW
+closeHistory() {
+    document.getElementById('historyOverlay').style.display = 'none';
+},
+
+// 3. DELETE ACCIDENTAL CLICKS
+deleteHistoryItem(index) {
+    const cat = cats[activeIdx];
+    if (cat && cat.history && cat.history[index]) {
+        cat.history.splice(index, 1);
+        this.save();
+        this.openHistory();
+    }
+},
+
+// 4. REQUEST LOCKSCREEN PUSH ALERTS PERMISSION
+async requestNotifications(passedBtn) {
+    const isMuted = localStorage.getItem('cc_alerts_muted') === 'true';
+    // ?? Captures the button directly so it never gets stuck!
+    const btn = passedBtn || document.querySelector('[onclick*="requestNotifications"]');
+
+    if (!isMuted) {
+        // Turn OFF notifications
+        localStorage.setItem('cc_alerts_muted', 'true');
+        if (btn) {
+            btn.innerHTML = "&#128263;"; 
+            btn.style.background = "rgba(255,118,117,0.15)";
+            btn.style.borderColor = "#ff7675";
+        }
+        alert("Alert schedules are now muted! Tippy Toes will stop sending push reminders.");
+        return;
+    }
+
+    // Turn ON notifications / Request Permissions
+    if (!('Notification' in window)) {
+        alert("This browser does not support lockscreen alerts.");
+        return;
+    }
+
+    const permission = await Notification.requestPermission();
+    if (permission === 'granted') {
+        localStorage.setItem('cc_alerts_muted', 'false');
+        if (btn) {
+            btn.innerHTML = "&#128276;"; 
+            btn.style.background = "var(--card)";
+            btn.style.borderColor = "var(--border)";
+        }
+        alert("Alert permissions activated successfully! Tippy Toes will notify you when trims are due.");
+        this.checkOverdueAlerts();
+        } else {
+        // Fallback: Force the icon to toggle anyway on local offline files for smooth testing
+        localStorage.setItem('cc_alerts_muted', 'false');
+        if (btn) {
+            btn.innerHTML = "&#128276;"; 
+            btn.style.background = "var(--card)";
+            btn.style.borderColor = "var(--border)";
+        }
+        alert("Notifications are currently blocked in your browser settings. Please enable them to turn alerts back on.");
+    }
+},
+
+checkCelebration() {
+        const cat = cats[activeIdx]; if(!cat) return;
+        const allDone = Object.keys(cat.paws).every(k => {
+            if (cat.paws[k].hidden) return true;
+            return cat.paws[k].toes.every(t => {
+                const limit = t.override || (k.startsWith('f') ? cat.fDef : cat.bDef);
+                return (t.lastTrim + (limit * 86400000)) > Date.now();
+            });
+        });
+        if (allDone && !cat.celebrated) {
+            cat.celebrated = true;
+            document.getElementById('celebration').style.display = 'flex';
+            this.showCelebrationRain();
+        }
+    },
+    showCelebrationRain() {
+        const container = document.getElementById('rain-container');
+        container.innerHTML = '';
+        const assets = ['🐟', '🧶', '🐾', '🍗', '🐭'];
+        for(let i=0; i<60; i++) {
+            const div = document.createElement('div');
+            div.className = 'rain'; div.innerText = assets[Math.floor(Math.random()*assets.length)];
+            div.style.left = Math.random() * 100 + "vw";
+            div.style.animationDuration = (Math.random() * 2 + 2) + "s";
+            container.appendChild(div);
+        }
+    },
+    closeCelebration() { document.getElementById('celebration').style.display = 'none'; },
+     renameToe(pk, ti, val) { 
+        if (cats[activeIdx]) {
+            // 1. Silently update the memory state without dropping your typing cursor
+            cats[activeIdx].paws[pk].toes[ti].label = val; 
+            
+            // 2. Write straight to storage without triggering a full page redraw
+            localStorage.setItem('cc_pro_v54', JSON.stringify(cats)); 
+            
+            // 3. Update the floating text header in real-time as you type
+            const groupEl = document.querySelector(`[onmousedown*="${pk}"][onmousedown*="${ti}"]`) || 
+                            document.querySelector(`[ontouchstart*="${pk}"][ontouchstart*="${ti}"]`);
+            if (groupEl) {
+                const labelEl = groupEl.querySelector('.static-label');
+                if (labelEl) labelEl.innerText = val;
+            }
+        }
+    },
+    updateOverride(pk, ti, val) { 
+        if (cats[activeIdx]) {
+            // 1. Silently update the numerical schedule override track
+            cats[activeIdx].paws[pk].toes[ti].override = parseInt(val) || 0; 
+            
+            // 2. Save directly to storage securely
+            localStorage.setItem('cc_pro_v54', JSON.stringify(cats)); 
+        }
+    },
+    adjustToe(pk, delta) {
+    const p = cats[activeIdx].paws[pk];
+    if (delta > 0 && p.toes.length < 10) {
+        const isRightPaw = pk.toLowerCase().includes('right') || pk.toLowerCase().endsWith('r');
+        const isFrontPaw = pk.toLowerCase().includes('front') || pk.toLowerCase().startsWith('f');
+        let defaultLabel = "Extra Toe";
+
+        if (isRightPaw) {
+            // Front right has 5 standard toes (max index 4). Back right has 4 standard toes (max index 3).
+            const maxStandardIndex = isFrontPaw ? 4 : 3;
+            
+            // Calculate what index we need from the outside edge going inward
+            const targetIndex = maxStandardIndex - p.toes.length;
+            
+            // Fetch the correct name from your DEFAULTS list
+            defaultLabel = DEFAULTS[pk][targetIndex] || "Extra Toe";
+        } else {
+            // Left paws naturally build sequentially from index 0 up to 4
+            defaultLabel = DEFAULTS[pk][p.toes.length] || "Extra Toe";
+        }
+
+        // Save the correct label straight into the profile data array
+        p.toes.push({ label: defaultLabel, lastTrim: 0 });
+    } else if (delta < 0 && p.toes.length > 0) {
+        p.toes.pop();
+    }
+    this.save(); // Locks the correctly named toe into localStorage permanently
+},
+  handleFeedbackSubmit(event) {
+   const messageBox = event.target.querySelector('textarea[name="message"]');
+   setTimeout(() => {
+     if(messageBox) messageBox.value = '';
+     alert("Feedback form action processed! Thank you for your suggestion.");
+   }, 500);
+   return true;
+ },
+ clearAllHistory() {
+   const cat = cats[activeIdx];
+   if (!cat) return;
+   if (confirm(`Clear all logs and past trim timestamps for ${cat.name}? This action cannot be undone.`)) {
+     cat.history = [];
+     this.save();
+     this.openHistory();
+   }
+ },
+ toggleHistoryTracking() {
+   const cat = cats[activeIdx];
+   if (!cat) return;
+   cat.historyDisabled = !cat.historyDisabled;
+   this.save();
+   this.updateHistoryTrackingBtnUI();
+ },
+
+updateHistoryTrackingBtnUI() {
+   const cat = cats[activeIdx];
+   const btn = document.getElementById('toggleHistoryTrackingBtn');
+   const indicator = document.getElementById('trackingStatusIndicator'); // Finds your dashboard status text
+   if (!btn || !cat) return;
+   
+   if (cat.historyDisabled) {
+     // App is paused: Show the command to START it
+     btn.innerText = "\u25B6\uFE0F Start Tracking"; // Renders ?? Start Tracking
+     btn.style.background = "rgba(0,184,148,0.2)";
+     btn.style.borderColor = "#00b894";
+     
+     // Update the dashboard light to clear up any lingering confusion
+     if (indicator) {
+        indicator.innerText = "\uD83D\uDD34 History Recording: PAUSED"; // Renders ?? History Recording: PAUSED
+        indicator.style.color = "#ff7675"; 
+     }
+   } else {
+     // App is active: Show the command to STOP it
+     btn.innerText = "\uD83D\uDED1 Stop Tracking";  // Renders ?? Stop Tracking
+     btn.style.background = "rgba(0,0,0,0.2)";
+     btn.style.borderColor = "#666";
+     
+     // Update the dashboard light to clear up any lingering confusion
+     if (indicator) {
+        indicator.innerText = "\uD83D\uDFE2 History Recording: ACTIVE"; // Renders ?? History Recording: ACTIVE
+        indicator.style.color = "#2ecc71";
+     }
+   }
+},
+saveNotes() { 
+    if (cats[activeIdx]) { 
+        cats[activeIdx].notes = document.getElementById('catNotes').value;
+        this.save(); 
+    }
+}, 
+ checkOverdueAlerts() {
+    if (!cats || cats.length === 0) return;
+    if (localStorage.getItem('cc_alerts_muted') === 'true') return;
+    let combinedAlertText = "";
+    cats.forEach(cat => {
+        let overdueCount = 0;
+        if (!cat.paws) return;
+        for (let pk in cat.paws) {
+            if (cat.paws[pk] && cat.paws[pk].hidden) continue;
+            if (!cat.paws[pk] || !cat.paws[pk].toes) continue;
+            cat.paws[pk].toes.forEach(toe => {
+                const limit = toe.override || (pk.startsWith('f') ? cat.fDef : cat.bDef);
+                const msPassed = Date.now() - toe.lastTrim;
+                const daysPassed = msPassed / 86400000;
+                if (daysPassed >= limit) {
+                    overdueCount++;
+                }
+            });
+        }
+                if (overdueCount > 0) {
+            combinedAlertText += `\uD83D\uDC3E <b>${cat.name}</b> has ${overdueCount} claws due for a trim!<br>`;
+            if ('Notification' in window && Notification.permission === 'granted') {
+                try {
+                    new Notification("?? Tippy Toes Reminder!", {
+                        body: `${cat.name} has ${overdueCount} claws that are ready for a precise trim!`
+                        /* Removed icon completely so the system falls back to your manifest app icon */
+                    });
+                } catch(e) {}        
+            }
+        }
+    });
+    if (combinedAlertText) {
+        this.showInAppNotification(combinedAlertText);
+    }
+},
+
+ showInAppNotification(htmlMessage) {
+    let alertBox = document.getElementById('inAppAlert');
+    if (!alertBox) {
+        alertBox = document.createElement('div');
+        alertBox.id = 'inAppAlert';
+        alertBox.style.cssText = "position:fixed; bottom:20px; right:20px; background:#2d3436; color:white; padding:15px 20px; border-radius:12px; border-left:5px solid #ff9f43; box-shadow:0 10px 25px rgba(0,0,0,0.4); z-index:11000; display:flex; flex-direction:column; gap:10px; font-family:sans-serif; max-width:320px; line-height:1.4;";
+        document.body.appendChild(alertBox);
+    }
+    alertBox.innerHTML = `
+        <div style="font-weight:bold; color:#ff9f43; font-size:1.1rem; display:flex; justify-content:space-between; align-items:center;">
+            <span>Schedule Alert!</span>
+            <button onclick="this.parentElement.parentElement.remove()" style="background:none; border:none; color:#aaa; font-size:1.2rem; cursor:pointer; padding:0 5px;">&times;</button>
+        </div>
+        <div style="font-size:0.95rem; color:#eee;">${htmlMessage}</div>
+    `;
+    setTimeout(() => { if(alertBox) alertBox.remove(); }, 7000);
+ },
+ triggerPwaInstall() {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+            const btn = document.getElementById('pwaInstallBtn');
+            if (btn) btn.style.display = 'none';
+        }
+        deferredPrompt = null;
+    });
+ }
+}; // This single curly brace correctly closes your whole ctrl object at the very end!
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const installBtn = document.getElementById('pwaInstallBtn');
+    if (installBtn) installBtn.style.display = 'block';
+});
+
+// ... Your other existing code ends here ...
+
+// Safety Valve: Forces a silent refresh after 150ms to snap toes into perfect alignment automatically
+setTimeout(() => {
+    if (typeof ctrl !== 'undefined' && ctrl.render) {
+        ctrl.render();
+    }
+}, 150);
+
+
+
+ctrl.init();
+</script>
+</body>
+</html>
